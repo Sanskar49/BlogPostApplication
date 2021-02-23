@@ -36,6 +36,7 @@ public class PostService {
         post4.setDate(new Date());
         POSTS.add(post4);
     } */
+    //These are the variables you provide from your database
     private final String url = "jdbc:postgresql://localhost:5432/technicalblog";
     private final String username = "postgres";  // "postgresql"
     private final String password = "password";
