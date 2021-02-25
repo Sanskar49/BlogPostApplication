@@ -42,10 +42,12 @@ public class PostService {
     private final String password = "password";
 
     public Connection connect() throws SQLException {
+        //This function makes connection of the backend logic with the sql database.
         return DriverManager.getConnection(url, username, password);
     }
 
     public ArrayList<Post> getAllPosts() {
+        //DB ma insert gareko stuffs you can see on your web(This function).
         try {
             // Business Logic for connecting the database
 
@@ -61,11 +63,13 @@ public class PostService {
             // Step 4: Loop into the resultSet and get the data
             while (resultSet.next()) {
                 Post post1 = new Post();
+                //post1 is in transient state
                 post1.setTitle(resultSet.getString("title"));
                 post1.setBody(resultSet.getString("body"));
                 post1.setDate(resultSet.getDate("date"));
 
                 // Store the data in the Singleton
+                //Now it might be in persistent state
                 POSTS.add(post1);
             }
 
@@ -79,6 +83,7 @@ public class PostService {
     }
 
     public void createPost(Post newPost) {
+        //Things you do on the web will be posted on your db.
         String query = "INSERT INTO posts(title, body, date) VALUES(?, ?, ?)";
         try {
             // Step 1: Connect to the DB
