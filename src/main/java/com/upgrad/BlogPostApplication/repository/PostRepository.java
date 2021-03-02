@@ -12,7 +12,7 @@ public class PostRepository {
     PostRepository() {
         System.out.println("***Post Repo***");
     }
-
+    //EntityManagerFactory is needed to create EntityManager which in return helps you perform Crud Operations.
     @PersistenceUnit(unitName = "techblog")
     private EntityManagerFactory entityManagerFactory;
 
@@ -31,6 +31,7 @@ public class PostRepository {
         EntityTransaction transaction = entityManager.getTransaction();
         try{
             transaction.begin();
+            //Persist saves the data in your database.
             entityManager.persist(newPost);
             //Committing transaction to your database if exception doesnt come.
             transaction.commit();
@@ -40,6 +41,21 @@ public class PostRepository {
             transaction.rollback();
         }
 
+    }
+
+    public void deletePost(Integer postId) {
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        try {
+            transaction.begin();
+            Post post = entityManager.find(Post.class, postId);
+            entityManager.remove(post);
+            transaction.commit();
+
+        } catch (Exception e) {
+            System.out.println(e);
+            transaction.rollback();
+        }
     }
 
 }

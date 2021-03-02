@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,8 +22,8 @@ public class PostController {
 
     @RequestMapping("/posts")
     public String getUserPost(Model model){
-        //Thyakka below line is wrong because of IOC OR dependency injection.
         //PostService postService = new PostService();
+        //Model.addAttribute is adding the things in the model and then the post is getting returned in view.
         List<Post> posts = postService.getAllPosts();
         model.addAttribute("posts", posts);
         return "posts";
@@ -39,6 +40,15 @@ public class PostController {
         newPost.setDate(new Date());
         postService.createPost(newPost);
         return "redirect:/posts";
+
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/deletepost")
+    public String deletePost(@RequestParam(name = "postId") Integer postId) {
+        //postId comes when you request it it come so thats why annotation is being used with it.
+        postService.deletePost(postId);
+        return "redirect:/posts";
+
 
     }
 }

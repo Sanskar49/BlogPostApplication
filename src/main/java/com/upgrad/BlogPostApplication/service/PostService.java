@@ -30,6 +30,9 @@ public class PostService {
     public void createPost(Post newPost) {
         //This function takes the postTitle and description from the web and saves it on your database.
       postRepository.createPost(newPost);
+    }
+    public void deletePost(Integer postId) {
+        postRepository.deletePost(postId);
 
     }
 }
