@@ -12,12 +12,15 @@ public class UserService {
     private UserRepository userRepository;
 
 
-    public boolean login(User user) {
+    public User login(User user) {
         //Contain all business logic and communicate with the database.
-        if (user.getUsername().equals("ashish_kumar") && user.getPassword().equals("chitkara"))
-            return true;
-        else
-            return false;
+        User existingUser = userRepository.checkCredentials(user.getUsername(), user.getPassword());
+        if(existingUser==null) {
+            return null;
+        }
+        else{
+            return existingUser;
+        }
     }
 
     public void registerUser(User newUser) {

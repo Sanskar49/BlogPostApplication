@@ -29,14 +29,17 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST, value = "/users/login")
     public String loginUser(User user){
         //check if the credentials match
-        if(userService.login(user))
-        {
-            return "redirect:/posts";
+        User existingUser = userService.login(user);
+        if(existingUser == null) {
+            System.out.println("User Not Found");
+            return "/users/login";
         }
         else
         {
-            return "users/login";
+            System.out.println("User Found");
+            return "redirect:/posts";
         }
+
     }
 
     //You get the UI to any page only after the 'GET' request. 'POST' request doesn't have a mapping.
