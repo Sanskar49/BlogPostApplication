@@ -38,7 +38,7 @@ public class UserController {
         }
         else
         {
-            //Maintain the session
+            //Maintain the session and lets you stay in the session
 
             session.setAttribute("LoggedUser", existingUser);
             System.out.println("Session running");
